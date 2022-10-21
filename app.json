@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "quizfutebol",
+    "slug": "quizfutebol",
+    "scheme": "projetoquizfutebol",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#12131C"
+    },
+    "notification":{
+      "icon": "./assets/iconNotificacao.png",
+      "color": "#D3B417"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/iconNotificacao.png",
+          "color": "#D3B417"
+        }
+      ]
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#12131C"
+      },
+      "versionCode": 1,
+      "package": "com.scluckas.quizfutebol",
+      "permissions": [],
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-7510279083155970~7754274810"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

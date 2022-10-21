@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "107589206782",
+    "project_id": "palpiteirosnotify",
+    "storage_bucket": "palpiteirosnotify.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107589206782:android:1d97d4c547fc1b196a5baf",
+        "android_client_info": {
+          "package_name": "com.scluckas.quizfutebol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107589206782-oobdiee3dnd0qra6785m3spegjm4aaeg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5aeQGDpA2NSS7qzfF2cUR7Jd8RlVedlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107589206782-oobdiee3dnd0qra6785m3spegjm4aaeg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
