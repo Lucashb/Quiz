@@ -20,20 +20,8 @@ export default function CienciaNiveis() {
         })
     },[]);
 
-    const Ciencias = async() => {
-        navigation.navigate('')
-    }
-
-    const Historia = async() => {
-        navigation.navigate('')
-    }
-
-    const Esporte = async() => {
-        navigation.navigate('')
-    }
-
-    const Bandeiras = async() => {
-        navigation.navigate('')
+    const Ciencias = async(aux1, aux2) => {
+        navigation.navigate('CienciaPerguntas', {idquiz: aux1, count: aux2})
     }
 
     async function getDadosVidaeMoedas(){
@@ -63,29 +51,28 @@ export default function CienciaNiveis() {
         }
     }
 
-    async function getNiveis(usuario){
+    const getNiveis = async () => {
         try{
-           
-            if(usuario !== null){
-                axios.get(`https://quizfutebol.herokuapp.com/buscaQuizes`)
-                .then((res) => {
-                    console.log(res.data)
-                    const dados = res.data.map(function(item){
-                        return {
-                        nome: item.nome,
-                        nivel: item.nivel,
-                        quantidade: item.quantidade
-                        };
-                    });
-                    setResponseAPINiveis(dados);
-                })
-                .catch((error) => {
-                    Alert.alert('Atualizando Informacoes, tente novamente dentro de instantes !!!')
-                });
-            } else {
-                setResponse(1)
-            }
         
+            axios.get(`https://quizfutebol.herokuapp.com/buscaQuizPerguntasAgrupado/ciencia`)
+            .then((res) => {
+
+                const dados = res.data.map(function(item){
+                    return {
+                    idquizes: item.idquizes,
+                    nivel: item.nivel,
+                    nome: item.nome,
+                    count: item.count
+                    };
+                });
+                
+                setResponseAPINiveis(dados)
+
+            })
+            .catch((error) => {
+                Alert.alert('Atualizando Informacoes, tente novamente dentro de instantes !!!')
+            });
+            
         } catch (e) {
             Alert.alert('Atualizando Informacoes, tente novamente dentro de instantes !!!')
         }
@@ -99,19 +86,25 @@ export default function CienciaNiveis() {
                     
                     <TouchableOpacity 
                     style={styles.card}
-                    onPress={() => {Ciencias()}}>
+                    onPress={() => {Ciencias(aux.idquizes, aux.count)}}>
 
-                        <View>
+                            <View style={styles.card1}>
 
-                            <Text>Nivel: {aux.nivel}</Text>
+                                <Text style={styles.texto}>Nivel: {aux.nivel}</Text>
 
-                        </View>
+                            </View>
 
-                        <View>
+                            <View style={styles.card1}>
 
-                            <Text>Nivel: {aux.nivel}</Text>
+                                <Text style={styles.texto}>ProgressBar</Text>
 
-                        </View>
+                            </View>
+
+                            <View style={styles.card1}>
+
+                                <Text style={styles.textoPerguntas}>Perguntas: 0 / {aux.count}</Text>
+
+                            </View>
 
                     </TouchableOpacity>
 
@@ -136,35 +129,36 @@ export default function CienciaNiveis() {
 
             <View style={styles.containerGeral}>
             
-            <View style={styles.containerDiamante}>
+                <View style={styles.containerDiamante}>
 
-                <View style={styles.containerDiamanteDentro}>
-                    <View style={styles.containerDiamante}>
-                        <Image 
-                        style={{width: 25, height: 25, marginLeft: 5}}
-                        Image source={require('../../assets/Vidas.png')} 
-                        />
-                        <Text style={{textAlign:'center', fontSize: 20, color: '#FFF', marginHorizontal: 10}}>{response.vidas !== null ? response.vidas : null}</Text>
+                    <View style={styles.containerDiamanteDentro}>
+                        <View style={styles.containerDiamante}>
+                            <Image 
+                            style={{width: 25, height: 25, marginLeft: 5}}
+                            Image source={require('../../assets/Vidas.png')} 
+                            />
+                            <Text style={{textAlign:'center', fontSize: 20, color: '#FFF', marginHorizontal: 10}}>{response.vidas !== null ? response.vidas : null}</Text>
+                        </View>
                     </View>
+
+                    <View style={styles.containerDiamanteDentro}>
+                        <View style={styles.containerDiamante}>
+                            <Image 
+                            style={{width: 25, height: 25, marginLeft: 5}}
+                            Image source={require('../../assets/Diamante.png')} 
+                            />
+                            <Text style={{textAlign:'center', fontSize: 20, color: '#FFF', marginHorizontal: 10}}>{response.moedas !== null ? response.moedas : null}</Text>
+                        </View>
+                    </View>
+
                 </View>
 
-                <View style={styles.containerDiamanteDentro}>
-                    <View style={styles.containerDiamante}>
-                        <Image 
-                        style={{width: 25, height: 25, marginLeft: 5}}
-                        Image source={require('../../assets/Diamante.png')} 
-                        />
-                        <Text style={{textAlign:'center', fontSize: 20, color: '#FFF', marginHorizontal: 10}}>{response.moedas !== null ? response.moedas : null}</Text>
-                    </View>
-                </View>
+                <FlatList 
+                data={responseAPINiveis}
+                keyExtractor={item=>item.id}
+                renderItem={({item} )=> <Tela aux={item}/>}/>
 
-            </View>
-
-            <FlatList 
-            data={responseAPINiveis}
-            keyExtractor={item=>item.id}
-            renderItem={({item} )=> <Tela aux={item}/>}/>
-
+                
             </View>
             
         </ScrollView>
@@ -188,12 +182,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     card: {
+        flex: 1,
         width: larguraCard - 50,
         borderRadius: 10,
-        height: 100,
+        height: 120,
         alignItems: 'center',
         borderWidth: 1,
         borderColor: '#6949FD'
+    },
+    card1: {
+        flex: 1,
+        width: larguraCard - 50,
+        height: 120,
+        alignItems: 'center',
     },
     cardImagem:{
         width: larguraCard - 100,
@@ -230,6 +231,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 30
     },
     texto:{
+        flex:1,
         textAlign: 'center',
         fontSize: 25,
         color: '#FFF',
@@ -239,4 +241,10 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#5538D0',
     },
+    textoPerguntas:{
+        flex:1,
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#FFF',
+    }
   })

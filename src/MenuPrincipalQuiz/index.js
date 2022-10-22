@@ -13,12 +13,6 @@ export default function MenuPrincipalQuiz() {
 
     useEffect(()=>{
         navigation.addListener('focus', ()=> {
-            
-            AsyncStorage.getItem('@usuario').then((usuario) => {
-                if(usuario === null){
-                  CriarUsuario();
-                } 
-            });
 
             AcessarComUsuario();
 

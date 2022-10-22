@@ -34,7 +34,7 @@ export default function Jogar() {
         navigation.navigate('')
     }
 
-    async function getDados(usuario){
+    async function getDados(){
         try{
             AsyncStorage.getItem('@usuario').then((usuario) => {
                 if(usuario !== null){

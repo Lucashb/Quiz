@@ -11,10 +11,40 @@ export default function App() {
 
         AsyncStorage.getItem('@usuario').then((usuario) => {
             if(usuario === null){
-              CriarUsuario();
-            } 
+                CriarUsuario();
+            } else {
+                AcessarComUsuario(usuario)
+            }
         });
   },[]);
+
+  async function AcessarComUsuario(usuario){
+    try{
+       
+        if(usuario !== null){
+            axios.get(`https://quizfutebol.herokuapp.com/buscaUsuarios/${usuario}`)
+            .then((res) => {
+                
+                const dados = res.data.map(function(item){
+                    return {
+                    moedas: item.moedas,
+                    vidas: item.vidas
+                    };
+                });
+                
+            })
+            .catch((error) => {
+                Alert.alert('Atualizando Informacoes, tente novamente dentro de instantes !!!')
+            });
+        } else {
+            
+        }
+       
+    } catch (e) {
+        Alert.alert('Atualizando Informacoes, tente novamente dentro de instantes !!!')
+    }
+    
+}
 
   async function CriarUsuario() {
     try {
